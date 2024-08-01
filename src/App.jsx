@@ -1,5 +1,35 @@
+import "./App.css";
+import TodoContainer from "./components/TodoContainer";
+import InputContainer from "./components/InputContainer";
+import { useState } from "react";
 function App() {
-  return <></>;
+  let [inputVal, setInputVal] = useState("");
+
+  const [todos, setTodos] = useState([]);
+
+  function writeTodo(e) {
+    setInputVal(e.target.value);
+  }
+  function addTodo() {
+    setInputVal((inputVal = inputVal.trim()));
+    if (inputVal != "") {
+      setTodos((prevTodos) => [...prevTodos, inputVal]);
+      setInputVal("");
+    }
+  }
+
+  return (
+    <main>
+      <h1>Todo-List</h1>
+      <InputContainer
+        inputVal={inputVal}
+        writeTodo={writeTodo}
+        addTodo={addTodo}
+      />
+
+      <TodoContainer todos={todos} />
+    </main>
+  );
 }
 
 export default App;
